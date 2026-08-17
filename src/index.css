@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Newsreader:opsz,wght@10..72,400;10..72,500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-paper-peach: #f9cba7;
+  --color-paper-yellow: #f2e394;
+  --color-paper-green: #cbe0c1;
+  --color-paper-blue: #b4d1e2;
+  --color-paper-lavender: #d8c3e8;
+  --color-paper-cream: #f4f0e6;
+  --color-wall-dark: #12110f;
+  --color-wall-light: #151412;
+  
+  --font-serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Figtree", "Avenir Next", "Segoe UI", sans-serif;
+  --font-brand: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-wall-dark);
+    /* Subtle noise texture for the wall */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    color: #e0ddd5;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .paper-texture {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .paper-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* Subtle paper noise */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  .tape-base {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    z-index: 10;
+  }
+
+  .tape-frosted {
+    background-color: rgba(255, 255, 255, 0.85);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  .tape-gingham {
+    background-color: #8bb174;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.4) 75%, rgba(255,255,255,0.4)), repeating-linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.4) 75%, rgba(255,255,255,0.4));
+    background-position: 0 0, 4px 4px;
+    background-size: 8px 8px;
+    opacity: 0.9;
+  }
+
+  .tape-polka {
+    background-color: #e5e7eb;
+    background-image: radial-gradient(#6b7280 20%, transparent 20%), radial-gradient(#6b7280 20%, transparent 20%);
+    background-position: 0 0, 4px 4px;
+    background-size: 8px 8px;
+    opacity: 0.9;
+  }
+
+  .tape-linen {
+    background-color: #f3eed9;
+    background-image: linear-gradient(90deg, rgba(0,0,0,0.03) 50%, transparent 50%), linear-gradient(rgba(0,0,0,0.03) 50%, transparent 50%);
+    background-size: 4px 4px;
+    opacity: 0.95;
+  }
+
+  .tape-hearts {
+    background-color: #fbcfe8;
+    background-image: radial-gradient(circle at 4px 4px, #f43f5e 1px, transparent 1.5px);
+    background-size: 8px 8px;
+    opacity: 0.9;
+  }
+
+  .tape-smiley {
+    background-color: #3b82f6;
+    background-image: radial-gradient(circle at 4px 4px, #fbbf24 1.5px, transparent 2px);
+    background-size: 10px 10px;
+    opacity: 0.9;
+  }
+}
