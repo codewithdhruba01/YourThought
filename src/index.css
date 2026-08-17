@@ -32,7 +32,6 @@
 @layer utilities {
   .paper-texture {
     position: relative;
-    overflow: hidden;
   }
   
   .paper-texture::before {
@@ -40,9 +39,10 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    /* Subtle paper noise */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    border-radius: inherit;
+    background-image: url("/paper-texture-2.png");
     mix-blend-mode: multiply;
+    opacity: 0.95;
   }
 
   .tape-base {
@@ -53,13 +53,14 @@
     width: 60px;
     height: 24px;
     background-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
     z-index: 10;
   }
 
   .tape-frosted {
     background-color: rgba(255, 255, 255, 0.85);
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    clip-path: polygon(0% 0%, 2% 10%, 0% 20%, 3% 30%, 1% 40%, 4% 50%, 0% 60%, 2% 70%, 1% 80%, 3% 90%, 0% 100%, 100% 100%, 98% 90%, 100% 80%, 97% 70%, 99% 60%, 96% 50%, 100% 40%, 98% 30%, 100% 20%, 97% 10%, 100% 0%);
   }
 
   .tape-gingham {
@@ -68,6 +69,7 @@
     background-position: 0 0, 4px 4px;
     background-size: 8px 8px;
     opacity: 0.9;
+    clip-path: polygon(1% 0%, 3% 15%, 0% 30%, 4% 45%, 1% 60%, 3% 75%, 0% 90%, 2% 100%, 98% 100%, 100% 85%, 97% 70%, 99% 55%, 96% 40%, 100% 25%, 97% 10%, 100% 0%);
   }
 
   .tape-polka {
@@ -76,6 +78,7 @@
     background-position: 0 0, 4px 4px;
     background-size: 8px 8px;
     opacity: 0.9;
+    clip-path: polygon(0% 5%, 4% 15%, 1% 25%, 3% 35%, 0% 45%, 5% 55%, 1% 65%, 4% 75%, 0% 85%, 3% 95%, 100% 100%, 96% 90%, 99% 80%, 95% 70%, 100% 60%, 97% 50%, 100% 40%, 96% 30%, 99% 20%, 95% 10%, 100% 0%);
   }
 
   .tape-linen {
@@ -83,6 +86,7 @@
     background-image: linear-gradient(90deg, rgba(0,0,0,0.03) 50%, transparent 50%), linear-gradient(rgba(0,0,0,0.03) 50%, transparent 50%);
     background-size: 4px 4px;
     opacity: 0.95;
+    clip-path: polygon(2% 0%, 0% 12%, 3% 24%, 1% 36%, 4% 48%, 0% 60%, 3% 72%, 1% 84%, 2% 100%, 100% 98%, 97% 86%, 100% 74%, 96% 62%, 99% 50%, 97% 38%, 100% 26%, 98% 14%, 100% 2%);
   }
 
   .tape-hearts {
@@ -90,6 +94,7 @@
     background-image: radial-gradient(circle at 4px 4px, #f43f5e 1px, transparent 1.5px);
     background-size: 8px 8px;
     opacity: 0.9;
+    clip-path: polygon(0% 0%, 3% 20%, 0% 40%, 4% 60%, 1% 80%, 2% 100%, 100% 100%, 97% 80%, 99% 60%, 96% 40%, 100% 20%, 98% 0%);
   }
 
   .tape-smiley {
@@ -97,5 +102,6 @@
     background-image: radial-gradient(circle at 4px 4px, #fbbf24 1.5px, transparent 2px);
     background-size: 10px 10px;
     opacity: 0.9;
+    clip-path: polygon(1% 0%, 4% 20%, 0% 40%, 3% 60%, 1% 80%, 4% 100%, 96% 100%, 100% 80%, 97% 60%, 100% 40%, 96% 20%, 99% 0%);
   }
 }

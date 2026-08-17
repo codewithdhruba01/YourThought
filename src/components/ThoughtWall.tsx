@@ -11,7 +11,7 @@ export function ThoughtWall({ thoughts, onLikeToggle }: ThoughtWallProps) {
   return (
     <div className="w-full py-8">
       {/* Grid Layout to align items in rows */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mx-auto justify-items-center" style={{ gap: 'clamp(1.6rem, 3.2vw, 2.4rem) clamp(0.95rem, 2vw, 1.5rem)' }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mx-auto justify-items-center" style={{ gap: 'clamp(1rem, 2vw, 1.5rem) clamp(0.5rem, 1vw, 1rem)' }}>
         <AnimatePresence>
           {thoughts.map((thought) => (
             <motion.div
@@ -24,7 +24,7 @@ export function ThoughtWall({ thoughts, onLikeToggle }: ThoughtWallProps) {
                 opacity: { duration: 0.3 },
                 layout: { type: "spring", bounce: 0.3, duration: 0.6 }
               }}
-              className="w-full max-w-45 flex justify-center"
+              className="w-full max-w-[18rem] flex justify-center"
             >
               <ThoughtCard thought={thought} onLikeToggle={onLikeToggle} />
             </motion.div>

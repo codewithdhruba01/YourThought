@@ -116,7 +116,7 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                     previewColorClasses[paperColor]
                   )}
                 >
-                  <div className={clsx("tape-base", `tape-${tape}`)} />
+                  <div className={clsx("tape-base absolute -top-[1.2rem] left-1/2 w-[55%] h-[2.4rem]", `tape-${tape}`)} style={{ transform: 'translateX(-50%)' }} />
                   <p className="font-serif text-sm leading-snug text-gray-800 break-words w-full line-clamp-4">
                     {text || "a small thing worth doing..."}
                   </p>
