@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Thought } from '../types';
-import { generateInitialThoughts } from '../data';
 
 export type SortMode = 'newest' | 'popular' | 'surprise';
 
@@ -11,20 +10,18 @@ export function useThoughts() {
 
   // Initialize data
   useEffect(() => {
-    const stored = localStorage.getItem('thoughtful-list-data');
+    const stored = localStorage.getItem('thoughtful-list-data-v2');
     if (stored) {
       try {
         setThoughts(JSON.parse(stored));
       } catch (e) {
         console.error('Failed to parse stored thoughts');
-        const initial = generateInitialThoughts();
-        setThoughts(initial);
-        localStorage.setItem('thoughtful-list-data', JSON.stringify(initial));
+        setThoughts([]);
+        localStorage.setItem('thoughtful-list-data-v2', JSON.stringify([]));
       }
     } else {
-      const initial = generateInitialThoughts();
-      setThoughts(initial);
-      localStorage.setItem('thoughtful-list-data', JSON.stringify(initial));
+      setThoughts([]);
+      localStorage.setItem('thoughtful-list-data-v2', JSON.stringify([]));
     }
     setIsLoaded(true);
   }, []);
@@ -32,7 +29,7 @@ export function useThoughts() {
   // Persist on change
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem('thoughtful-list-data', JSON.stringify(thoughts));
+      localStorage.setItem('thoughtful-list-data-v2', JSON.stringify(thoughts));
     }
   }, [thoughts, isLoaded]);
 
