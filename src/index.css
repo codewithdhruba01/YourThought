@@ -97,6 +97,15 @@
     clip-path: polygon(0% 0%, 3% 20%, 0% 40%, 4% 60%, 1% 80%, 2% 100%, 100% 100%, 97% 80%, 99% 60%, 96% 40%, 100% 20%, 98% 0%);
   }
 
+  .tape-stars {
+    background-color: #f3ecd4;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23f59e0b' d='M10 1l2.5 5.5h6l-4.5 4 1.5 6-5.5-3-5.5 3 1.5-6-4.5-4h6z'/%3E%3C/svg%3E");
+    background-size: 14px 14px;
+    background-position: center;
+    opacity: 0.95;
+    clip-path: polygon(0% 2%, 3% 15%, 1% 30%, 4% 45%, 0% 60%, 2% 75%, 1% 90%, 3% 100%, 100% 100%, 97% 85%, 99% 70%, 96% 55%, 100% 40%, 98% 25%, 100% 10%, 97% 0%);
+  }
+
   .tape-smiley {
     background-color: #3b82f6;
     background-image: radial-gradient(circle at 4px 4px, #fbbf24 1.5px, transparent 2px);

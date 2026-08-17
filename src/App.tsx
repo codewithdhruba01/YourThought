@@ -26,6 +26,7 @@ function App() {
           <ThoughtWall 
             thoughts={thoughts} 
             onLikeToggle={toggleLike} 
+            onAddClick={() => setIsModalOpen(true)}
           />
         </main>
 

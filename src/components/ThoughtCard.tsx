@@ -26,7 +26,7 @@ export function ThoughtCard({ thought, onLikeToggle }: ThoughtCardProps) {
 
   return (
     <div 
-      className="relative flex items-center justify-center w-full aspect-[1/1.06] group"
+      className="relative flex items-center justify-center w-full aspect-[1/1.25] group"
       style={{
         transform: `rotate(${thought.rotation}deg)`,
         transition: 'transform 0.4s ease',
