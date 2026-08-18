@@ -163,20 +163,20 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                   <label className="block text-xs font-sans tracking-widest text-gray-400 uppercase mb-3 text-center">
                     Tape
                   </label>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-4 gap-2">
                     {TAPE_TYPES.map((t) => (
                       <button
                         key={t.id}
                         onClick={() => setTape(t.id)}
                         className={clsx(
-                          "flex flex-col items-center justify-center p-2 rounded-lg transition-colors",
+                          "flex flex-col items-center justify-center p-1.5 rounded-lg transition-colors",
                           tape === t.id ? "bg-white/10" : "hover:bg-white/5"
                         )}
                       >
-                        <div className="w-16 h-6 mb-2 relative overflow-hidden bg-gray-200">
+                        <div className="w-12 h-4 mb-1.5 relative overflow-hidden bg-gray-200 rounded-sm">
                            <div className={clsx("absolute inset-0", `tape-${t.id}`)} style={{ top: 0, left: 0, width: '100%', height: '100%', transform: 'none' }} />
                         </div>
-                        <span className="text-[10px] uppercase tracking-wider text-gray-400">{t.label}</span>
+                        <span className="text-[9px] uppercase tracking-wider text-gray-400 text-center leading-tight truncate w-full">{t.label}</span>
                       </button>
                     ))}
                   </div>
