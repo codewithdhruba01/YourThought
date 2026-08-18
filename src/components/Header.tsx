@@ -2,10 +2,13 @@ export function Header() {
   return (
     <header className="w-full flex flex-col items-center justify-center text-center" style={{ marginBottom: 'clamp(2.25rem, 6vh, 3.75rem)' }}>
       <h1 className="font-brand text-[clamp(2.85rem,8vw,4.85rem)] font-medium leading-[0.92] tracking-[-0.035em] text-[#f3eee6] cursor-default">
-        <span className="group/the">
-          <span className="transition-colors duration-300 group-hover/the:text-paper-yellow">t</span>
-          <span className="transition-colors duration-300 group-hover/the:text-paper-peach">h</span>
-          <span className="transition-colors duration-300 group-hover/the:text-paper-green">e</span>
+        <span className="group/yours">
+          <span className="transition-colors duration-300 group-hover/yours:text-paper-yellow">Y</span>
+          <span className="transition-colors duration-300 group-hover/yours:text-paper-peach">o</span>
+          <span className="transition-colors duration-300 group-hover/yours:text-paper-green">u</span>
+          <span className="transition-colors duration-300 group-hover/yours:text-paper-blue">r</span>
+          <span className="transition-colors duration-300 group-hover/yours:text-paper-lavender">'</span>
+          <span className="transition-colors duration-300 group-hover/yours:text-paper-yellow">s</span>
         </span>
         {' '}
         <span className="group/thought">
@@ -17,15 +20,12 @@ export function Header() {
           <span className="transition-colors duration-300 group-hover/thought:text-paper-blue">h</span>
           <span className="transition-colors duration-300 group-hover/thought:text-paper-lavender">t</span>
         </span>
-        <span className="group/ful">
-          <span className="transition-colors duration-300 group-hover/ful:text-paper-green">f</span>
-          <span className="transition-colors duration-300 group-hover/ful:text-paper-yellow">u</span>
-          <span className="transition-colors duration-300 group-hover/ful:text-paper-peach">l</span>
-          {' '}
-          <span className="transition-colors duration-300 group-hover/ful:text-paper-blue">l</span>
-          <span className="transition-colors duration-300 group-hover/ful:text-paper-lavender">i</span>
-          <span className="transition-colors duration-300 group-hover/ful:text-paper-green">s</span>
-          <span className="transition-colors duration-300">t</span>
+        {' '}
+        <span className="group/list">
+          <span className="transition-colors duration-300 group-hover/list:text-paper-blue">l</span>
+          <span className="transition-colors duration-300 group-hover/list:text-paper-lavender">i</span>
+          <span className="transition-colors duration-300 group-hover/list:text-paper-green">s</span>
+          <span className="transition-colors duration-300 group-hover/list:text-paper-peach">t</span>
         </span>
       </h1>
       <div className="mt-6 text-[1.1rem] font-serif text-[#f3eee66b]">
