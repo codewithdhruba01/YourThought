@@ -4,12 +4,14 @@ import { ThoughtToolbar } from './components/ThoughtToolbar';
 import { ThoughtWall } from './components/ThoughtWall';
 import { FloatingAddButton } from './components/FloatingAddButton';
 import { AddThoughtModal } from './components/AddThoughtModal';
+import { ThanksModal } from './components/ThanksModal';
 import { Footer } from './components/Footer';
 import { useThoughts } from './hooks/useThoughts';
 
 function App() {
   const { thoughts, totalCount, sortMode, setSortMode, addThought, toggleLike } = useThoughts();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isThanksModalOpen, setIsThanksModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[var(--color-wall-dark)] text-[#e0ddd5] font-sans selection:bg-white/20">
@@ -38,7 +40,15 @@ function App() {
       <AddThoughtModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
-        onSubmit={addThought} 
+        onSubmit={(thought) => {
+          addThought(thought);
+          setIsThanksModalOpen(true);
+        }} 
+      />
+
+      <ThanksModal 
+        isOpen={isThanksModalOpen} 
+        onClose={() => setIsThanksModalOpen(false)} 
       />
     </div>
   );
