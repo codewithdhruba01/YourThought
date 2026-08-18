@@ -119,7 +119,7 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 pb-6 space-y-8 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto px-6 pb-6 space-y-8 scrollbar-hide">
               
               {/* Live Preview */}
               <div className="flex justify-center mt-2">
