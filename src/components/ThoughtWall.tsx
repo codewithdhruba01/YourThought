@@ -14,7 +14,7 @@ export function ThoughtWall({ thoughts, onLikeToggle, onAddClick }: ThoughtWallP
   return (
     <div className="w-full py-8">
       {/* Grid Layout to align items in rows */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mx-auto justify-items-center" style={{ gap: 'clamp(1rem, 2vw, 1.5rem) clamp(0.5rem, 1vw, 1rem)' }}>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mx-auto justify-items-center" style={{ gap: 'clamp(1rem, 2vw, 1.5rem) clamp(0.5rem, 1vw, 1rem)' }}>
         <AnimatePresence>
           {thoughts.map((thought) => (
             <motion.div
