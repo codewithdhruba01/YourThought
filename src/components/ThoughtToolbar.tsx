@@ -25,7 +25,7 @@ export function ThoughtToolbar({ count, activeSort, onSortChange }: ThoughtToolb
                 "appearance-none bg-transparent border-0 rounded-full px-[0.48rem] py-[0.28rem] text-[0.8233rem] font-medium transition-colors duration-[0.18s] capitalize",
                 activeSort === mode 
                   ? "bg-[#f3eee61a] text-[#f3eee6]" 
-                  : "text-[#f3eee66b] hover:text-[#f3eee6c7] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#f3eee673] focus-visible:outline-offset-2"
+                  : "text-[#f3eee66b] hover:text-[#f3eee6c7] focus-visible:outline focus-visible:outline-[#f3eee673] focus-visible:outline-offset-2"
               )}
             >
               {mode === 'surprise' ? 'Surprise me' : mode}

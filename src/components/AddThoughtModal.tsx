@@ -180,7 +180,7 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                         )}
                       >
                         <div 
-                          className="w-10 h-10 mb-2 relative rounded-md shadow-inner bg-[var(--color-paper-cream)]"
+                          className="w-10 h-10 mb-2 relative rounded-md shadow-inner bg-paper-cream"
                           style={{
                             backgroundColor: previewColorClasses[paperColor],
                             ...getTextureStyle(t.id, true)

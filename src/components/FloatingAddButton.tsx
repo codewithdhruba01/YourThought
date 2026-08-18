@@ -30,9 +30,11 @@ export function FloatingAddButton({ onClick }: FloatingAddButtonProps) {
           </div>
         </div>
         
-        {/* Decorative pencil illustration (using Lucide icon as a stand-in) */}
-        <div className="absolute -right-2 -bottom-2 text-[#466B14] opacity-50 transform -rotate-12 group-hover:rotate-0 transition-transform duration-300">
-          <Pencil size={24} strokeWidth={2} />
+        {/* Decorative pencil illustration sitting on the tape */}
+        <div 
+          className="absolute -top-4 left-1/2 z-20 text-[#466B14] transform -translate-x-1/2 rotate-15 group-hover:rotate-0 transition-transform duration-300 drop-shadow-md"
+        >
+          <Pencil size={20} strokeWidth={2.5} />
         </div>
       </div>
     </button>
