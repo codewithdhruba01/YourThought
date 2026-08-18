@@ -1,58 +1,45 @@
-# Thoughtful List - Supabase Setup
+# 🌟 Your's Thought List
 
-This project uses Supabase for data storage. Follow these steps to set up your own database.
+Welcome to **Your's Thought List**! This is a fun, interactive, and beautifully designed digital sticky note wall. It's a public space where anyone can drop a random thought, share some kind words, or simply read what others are thinking.
 
-## 1. Create a Supabase Project
+Whether it's a small idea, a quote you love, or just a friendly "hello," stick it on the wall and spread some positivity!
 
-1. Go to [Supabase](https://supabase.com/) and create a new project.
-2. Once your project is created, navigate to **Project Settings** > **API**.
-3. Copy your **Project URL** and **anon public key**.
+![Your's Thought List Preview](https://yourthought-five.vercel.app/og/og.png)
 
-## 2. Set up Environment Variables
+## ✨ Features
 
-1. Rename the `.env.example` file to `.env` (or create a `.env` file in the root of the project).
-2. Add your Supabase credentials:
+- **Interactive Sticky Note Wall**: A dynamic masonry layout filled with realistic, textured sticky notes.
+- **Customizable Notes**: When you add a thought, you can customize your paper color, texture (graph, dotted, lined, blank), and the tape holding it up (Indian flag, classic blue, gingham, and more!).
+- **Read & Like**: Browse through the wall to see what others from around the world have shared, and tap the heart to leave a like.
+- **Smooth Animations**: Powered by Framer Motion for a delightful user experience.
+- **Fully Responsive**: Looks gorgeous on mobile phones, tablets, and desktops.
 
-```env
-VITE_SUPABASE_URL=your_project_url
-VITE_SUPABASE_ANON_KEY=your_anon_key
-```
+## 🛠️ Tech Stack
 
-## 3. Create the Database Table
+- **Frontend**: React, TypeScript, Tailwind CSS
+- **Animations**: Framer Motion
+- **Backend & Database**: Supabase (PostgreSQL)
+- **Icons**: Lucide React
 
-1. Go to the **SQL Editor** in your Supabase dashboard.
-2. Click **New Query** and paste the following SQL commands to create the `thoughts` table and set up permissions.
+---
 
-```sql
--- Create the table
-CREATE TABLE thoughts (
-  id UUID PRIMARY KEY,
-  text TEXT NOT NULL,
-  author TEXT,
-  likes INTEGER DEFAULT 0,
-  created_at BIGINT NOT NULL,
-  paper_color TEXT NOT NULL,
-  tape TEXT NOT NULL,
-  texture TEXT,
-  rotation REAL NOT NULL
-);
+## 🚀 Running the Project Locally
 
--- Enable Row Level Security (RLS)
-ALTER TABLE thoughts ENABLE ROW LEVEL SECURITY;
+If you'd like to run this project on your own machine, follow these steps:
 
--- Create a policy to allow anyone to read thoughts
-CREATE POLICY "Allow public read access" ON thoughts
-  FOR SELECT USING (true);
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/codewithdhruba01/YourThought.git
+   cd YourThought
+   ```
 
--- Create a policy to allow anyone to insert thoughts (for public access)
-CREATE POLICY "Allow public insert access" ON thoughts
-  FOR INSERT WITH CHECK (true);
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
--- Create a policy to allow anyone to update likes
-CREATE POLICY "Allow public update access" ON thoughts
-  FOR UPDATE USING (true);
-```
+4. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
 
-3. Click **Run** to execute the query.
-
-Your backend is now set up and connected!
