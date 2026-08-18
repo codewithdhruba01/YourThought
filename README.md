@@ -1,33 +1,58 @@
-# React + TypeScript + Vite
+# Thoughtful List - Supabase Setup
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This project uses Supabase for data storage. Follow these steps to set up your own database.
 
-Currently, two official plugins are available:
+## 1. Create a Supabase Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Go to [Supabase](https://supabase.com/) and create a new project.
+2. Once your project is created, navigate to **Project Settings** > **API**.
+3. Copy your **Project URL** and **anon public key**.
 
-## React Compiler
+## 2. Set up Environment Variables
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Rename the `.env.example` file to `.env` (or create a `.env` file in the root of the project).
+2. Add your Supabase credentials:
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```env
+VITE_SUPABASE_URL=your_project_url
+VITE_SUPABASE_ANON_KEY=your_anon_key
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
-# YourThought
+## 3. Create the Database Table
+
+1. Go to the **SQL Editor** in your Supabase dashboard.
+2. Click **New Query** and paste the following SQL commands to create the `thoughts` table and set up permissions.
+
+```sql
+-- Create the table
+CREATE TABLE thoughts (
+  id UUID PRIMARY KEY,
+  text TEXT NOT NULL,
+  author TEXT,
+  likes INTEGER DEFAULT 0,
+  created_at BIGINT NOT NULL,
+  paper_color TEXT NOT NULL,
+  tape TEXT NOT NULL,
+  texture TEXT,
+  rotation REAL NOT NULL
+);
+
+-- Enable Row Level Security (RLS)
+ALTER TABLE thoughts ENABLE ROW LEVEL SECURITY;
+
+-- Create a policy to allow anyone to read thoughts
+CREATE POLICY "Allow public read access" ON thoughts
+  FOR SELECT USING (true);
+
+-- Create a policy to allow anyone to insert thoughts (for public access)
+CREATE POLICY "Allow public insert access" ON thoughts
+  FOR INSERT WITH CHECK (true);
+
+-- Create a policy to allow anyone to update likes
+CREATE POLICY "Allow public update access" ON thoughts
+  FOR UPDATE USING (true);
+```
+
+3. Click **Run** to execute the query.
+
+Your backend is now set up and connected!

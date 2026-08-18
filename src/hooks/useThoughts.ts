@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { supabase } from '../lib/supabase';
 import type { Thought } from '../types';
 
 export type SortMode = 'newest' | 'popular' | 'surprise';
@@ -8,45 +9,90 @@ export function useThoughts() {
   const [sortMode, setSortMode] = useState<SortMode>('newest');
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Initialize data
+  const thoughtsRef = useRef(thoughts);
   useEffect(() => {
-    const stored = localStorage.getItem('thoughtful-list-data-v3');
-    if (stored) {
-      try {
-        setThoughts(JSON.parse(stored));
-      } catch (e) {
-        console.error('Failed to parse stored thoughts');
-        setThoughts([]);
-        localStorage.setItem('thoughtful-list-data-v3', JSON.stringify([]));
+    thoughtsRef.current = thoughts;
+  }, [thoughts]);
+
+  // Initialize data from Supabase
+  useEffect(() => {
+    const fetchThoughts = async () => {
+      const { data, error } = await supabase
+        .from('thoughts')
+        .select('*');
+      
+      if (error) {
+        console.error('Error fetching thoughts:', error);
+      } else if (data) {
+        // Map from snake_case to camelCase
+        const mappedThoughts: Thought[] = data.map(t => ({
+          id: t.id,
+          text: t.text,
+          author: t.author || undefined,
+          likes: t.likes,
+          createdAt: Number(t.created_at),
+          paperColor: t.paper_color,
+          tape: t.tape,
+          texture: t.texture || undefined,
+          rotation: t.rotation
+        }));
+        setThoughts(mappedThoughts);
       }
-    } else {
-      setThoughts([]);
-      localStorage.setItem('thoughtful-list-data-v3', JSON.stringify([]));
-    }
-    setIsLoaded(true);
+      setIsLoaded(true);
+    };
+
+    fetchThoughts();
   }, []);
 
-  // Persist on change
-  useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem('thoughtful-list-data-v3', JSON.stringify(thoughts));
-    }
-  }, [thoughts, isLoaded]);
-
-  const addThought = useCallback((newThought: Thought) => {
+  const addThought = useCallback(async (newThought: Thought) => {
+    // Optimistic update
     setThoughts(prev => [newThought, ...prev]);
-    // When adding a new thought, usually we want to see it, so we switch to newest
     setSortMode('newest');
+
+    // Persist to Supabase
+    const { error } = await supabase
+      .from('thoughts')
+      .insert([{
+        id: newThought.id,
+        text: newThought.text,
+        author: newThought.author,
+        likes: newThought.likes,
+        created_at: newThought.createdAt,
+        paper_color: newThought.paperColor,
+        tape: newThought.tape,
+        texture: newThought.texture,
+        rotation: newThought.rotation
+      }]);
+      
+    if (error) {
+      console.error('Error inserting thought:', error);
+    }
   }, []);
 
-  const toggleLike = useCallback((id: string) => {
+  const toggleLike = useCallback(async (id: string) => {
+    const thought = thoughtsRef.current.find(t => t.id === id);
+    if (!thought) return;
+    
+    const newLikes = thought.likes + 1;
+
+    // Optimistic update
     setThoughts(prev => 
       prev.map(t => 
         t.id === id 
-          ? { ...t, likes: t.likes + 1 } // Simplified logic: just increment for now since card manages local un-like, or actually server should handle true toggle. We'll just update the likes. Wait, the card handles local state. We'll just apply the increment permanently to data.
+          ? { ...t, likes: newLikes } 
           : t
       )
     );
+
+    // Persist to Supabase
+    const { error } = await supabase
+      .from('thoughts')
+      .update({ likes: newLikes })
+      .eq('id', id);
+
+    if (error) {
+      console.error('Error updating likes:', error);
+    }
   }, []);
 
   const triggerSurprise = useCallback(() => {
@@ -82,5 +128,6 @@ export function useThoughts() {
     },
     addThought,
     toggleLike,
+    isLoaded
   };
 }
