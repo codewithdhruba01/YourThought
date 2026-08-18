@@ -49,16 +49,7 @@ export function ThoughtCard({ thought, onLikeToggle }: ThoughtCardProps) {
         }}
       >
         {/* Tape */}
-        <div 
-          className="absolute -top-2.5 left-1/2 w-[48%] h-6 z-10 flex flex-col rounded-md overflow-hidden" 
-          style={{ 
-            transform: 'translateX(-50%)',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-          }}
-        >
-          <div className="h-[40%] w-full bg-[#1A73E8]"></div>
-          <div className="h-[60%] w-full" style={{ backgroundColor: 'rgba(144, 202, 249, 0.75)' }}></div>
-        </div>
+        <div className={clsx("tape-base absolute -top-2.5 left-1/2 w-[48%] h-6 z-10", `tape-${thought.tape}`)} style={{ transform: 'translateX(-50%)' }} />
         
         {/* Content */}
         <div className="flex-1 flex flex-col items-center justify-center gap-[0.4rem] w-full mt-4">

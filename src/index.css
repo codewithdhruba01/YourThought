@@ -113,4 +113,10 @@
     opacity: 0.9;
     clip-path: polygon(1% 0%, 4% 20%, 0% 40%, 3% 60%, 1% 80%, 4% 100%, 96% 100%, 100% 80%, 97% 60%, 100% 40%, 96% 20%, 99% 0%);
   }
+
+  .tape-classic {
+    background: linear-gradient(to bottom, #1A73E8 0%, #1A73E8 40%, rgba(144, 202, 249, 0.75) 40%, rgba(144, 202, 249, 0.75) 100%);
+    clip-path: none;
+    border-radius: 6px;
+  }
 }

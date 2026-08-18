@@ -12,14 +12,15 @@ interface AddThoughtModalProps {
 }
 
 const PAPER_COLORS: { id: PaperColor; hex: string }[] = [
-  { id: 'peach', hex: '#f9cba7' },
-  { id: 'yellow', hex: '#f2e394' },
-  { id: 'green', hex: '#cbe0c1' },
-  { id: 'blue', hex: '#b4d1e2' },
-  { id: 'lavender', hex: '#d8c3e8' },
+  { id: 'peach', hex: '#FFAF82' },
+  { id: 'yellow', hex: '#FFDF59' },
+  { id: 'green', hex: '#A6D238' },
+  { id: 'blue', hex: '#82C8FA' },
+  { id: 'lavender', hex: '#D7B4F3' },
 ];
 
 const TAPE_TYPES: { id: TapeType; label: string }[] = [
+  { id: 'classic', label: 'Classic Blue' },
   { id: 'frosted', label: 'Frosted' },
   { id: 'gingham', label: 'Gingham' },
   { id: 'polka', label: 'Polka' },
@@ -31,16 +32,16 @@ const TAPE_TYPES: { id: TapeType; label: string }[] = [
 export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalProps) {
   const [text, setText] = useState('');
   const [author, setAuthor] = useState('');
-  const [paperColor, setPaperColor] = useState<PaperColor>('peach');
-  const [tape, setTape] = useState<TapeType>('frosted');
+  const [paperColor, setPaperColor] = useState<PaperColor>('green');
+  const [tape, setTape] = useState<TapeType>('classic');
 
   // Reset form when opened
   useEffect(() => {
     if (isOpen) {
       setText('');
       setAuthor('');
-      setPaperColor('peach');
-      setTape('frosted');
+      setPaperColor('green');
+      setTape('classic');
     }
   }, [isOpen]);
 
@@ -62,12 +63,12 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
     onClose();
   };
 
-  const previewColorClasses = {
-    peach: 'bg-[var(--color-paper-peach)]',
-    yellow: 'bg-[var(--color-paper-yellow)]',
-    green: 'bg-[var(--color-paper-green)]',
-    blue: 'bg-[var(--color-paper-blue)]',
-    lavender: 'bg-[var(--color-paper-lavender)]',
+  const previewColorClasses: Record<PaperColor, string> = {
+    peach: '#FFAF82',
+    yellow: '#FFDF59',
+    green: '#A6D238', // Vibrant green from reference
+    blue: '#82C8FA',
+    lavender: '#D7B4F3',
   };
 
   return (
@@ -111,13 +112,21 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
               {/* Live Preview */}
               <div className="flex justify-center mt-2">
                 <div 
-                  className={clsx(
-                    "relative paper-texture w-40 h-44 p-4 pt-8 flex flex-col items-center justify-center text-center shadow-md",
-                    previewColorClasses[paperColor]
-                  )}
+                  className="relative w-40 h-44 p-4 pt-8 flex flex-col items-center justify-center text-center rounded-2xl"
+                  style={{
+                    backgroundColor: previewColorClasses[paperColor],
+                    backgroundImage: `
+                      linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '14px 14px',
+                    boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)'
+                  }}
                 >
-                  <div className={clsx("tape-base absolute -top-[1.2rem] left-1/2 w-[55%] h-[2.4rem]", `tape-${tape}`)} style={{ transform: 'translateX(-50%)' }} />
-                  <p className="font-serif text-sm leading-snug text-gray-800 break-words w-full line-clamp-4">
+                  {/* Tape */}
+                  <div className={clsx("tape-base absolute -top-2.5 left-1/2 w-[48%] h-6 z-10", `tape-${tape}`)} style={{ transform: 'translateX(-50%)' }} />
+                  
+                  <p className="font-serif text-sm leading-snug text-gray-800 wrap-break-word w-full line-clamp-4 font-medium mt-1">
                     {text || "a small thing worth doing..."}
                   </p>
                 </div>
@@ -146,6 +155,8 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                     ))}
                   </div>
                 </div>
+
+
 
                 {/* Tape Type */}
                 <div>

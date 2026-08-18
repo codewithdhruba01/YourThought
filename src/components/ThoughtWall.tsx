@@ -59,16 +59,7 @@ export function ThoughtWall({ thoughts, onLikeToggle, onAddClick }: ThoughtWallP
                   }}
                 >
                   {/* Tape */}
-                  <div 
-                    className="absolute -top-2.5 left-1/2 w-[48%] h-6 z-10 flex flex-col rounded-md overflow-hidden" 
-                    style={{ 
-                      transform: 'translateX(-50%)',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                    }}
-                  >
-                    <div className="h-[40%] w-full bg-[#1A73E8]"></div>
-                    <div className="h-[60%] w-full" style={{ backgroundColor: 'rgba(144, 202, 249, 0.75)' }}></div>
-                  </div>
+                  <div className="tape-base tape-classic absolute -top-2.5 left-1/2 w-[48%] h-6 z-10" style={{ transform: 'translateX(-50%)' }} />
                   
                   {/* Content */}
                   <div className="flex flex-col items-center justify-center gap-3 relative z-10 mt-4">
