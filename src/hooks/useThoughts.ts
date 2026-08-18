@@ -10,18 +10,18 @@ export function useThoughts() {
 
   // Initialize data
   useEffect(() => {
-    const stored = localStorage.getItem('thoughtful-list-data-v2');
+    const stored = localStorage.getItem('thoughtful-list-data-v3');
     if (stored) {
       try {
         setThoughts(JSON.parse(stored));
       } catch (e) {
         console.error('Failed to parse stored thoughts');
         setThoughts([]);
-        localStorage.setItem('thoughtful-list-data-v2', JSON.stringify([]));
+        localStorage.setItem('thoughtful-list-data-v3', JSON.stringify([]));
       }
     } else {
       setThoughts([]);
-      localStorage.setItem('thoughtful-list-data-v2', JSON.stringify([]));
+      localStorage.setItem('thoughtful-list-data-v3', JSON.stringify([]));
     }
     setIsLoaded(true);
   }, []);
@@ -29,7 +29,7 @@ export function useThoughts() {
   // Persist on change
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem('thoughtful-list-data-v2', JSON.stringify(thoughts));
+      localStorage.setItem('thoughtful-list-data-v3', JSON.stringify(thoughts));
     }
   }, [thoughts, isLoaded]);
 

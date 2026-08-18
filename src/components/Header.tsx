@@ -28,7 +28,7 @@ export function Header() {
           <span className="transition-colors duration-300">t</span>
         </span>
       </h1>
-      <div className="mt-3 text-[1.1rem] font-serif text-[#f3eee66b]">
+      <div className="mt-6 text-[1.1rem] font-serif text-[#f3eee66b]">
         Made with love by&nbsp;
         <a href="https://codewithdhruba.in/" className="text-[#f3eee6ad] underline decoration-[#7d9b80] decoration-[1.5px] decoration-wavy underline-offset-4 hover:text-[#f3eee6eb] transition-colors">
           codewithdhruba
