@@ -3,7 +3,8 @@ import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
-import type { PaperColor, TapeType, Thought } from '../types';
+import type { PaperColor, TapeType, PaperTexture, Thought } from '../types';
+import { getTextureStyle } from '../utils/styles';
 
 interface AddThoughtModalProps {
   isOpen: boolean;
@@ -17,6 +18,13 @@ const PAPER_COLORS: { id: PaperColor; hex: string }[] = [
   { id: 'green', hex: '#A6D238' },
   { id: 'blue', hex: '#82C8FA' },
   { id: 'lavender', hex: '#D7B4F3' },
+];
+
+const TEXTURE_TYPES: { id: PaperTexture; label: string }[] = [
+  { id: 'grid', label: 'Graph' },
+  { id: 'dots', label: 'Dotted' },
+  { id: 'lines', label: 'Lined' },
+  { id: 'blank', label: 'Blank' },
 ];
 
 const TAPE_TYPES: { id: TapeType; label: string }[] = [
@@ -35,6 +43,7 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
   const [author, setAuthor] = useState('');
   const [paperColor, setPaperColor] = useState<PaperColor>('green');
   const [tape, setTape] = useState<TapeType>('india');
+  const [texture, setTexture] = useState<PaperTexture>('grid');
 
   // Reset form when opened
   useEffect(() => {
@@ -43,6 +52,7 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
       setAuthor('');
       setPaperColor('green');
       setTape('india');
+      setTexture('grid');
     }
   }, [isOpen]);
 
@@ -57,6 +67,7 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
       createdAt: Date.now(),
       paperColor,
       tape,
+      texture,
       rotation: (Math.random() * 3) - 1.5,
     };
 
@@ -116,12 +127,8 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                   className="relative w-40 h-44 p-4 pt-8 flex flex-col items-center justify-center text-center rounded-2xl"
                   style={{
                     backgroundColor: previewColorClasses[paperColor],
-                    backgroundImage: `
-                      linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '14px 14px',
-                    boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)'
+                    boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
+                    ...getTextureStyle(texture, true)
                   }}
                 >
                   {/* Tape */}
@@ -157,7 +164,33 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                   </div>
                 </div>
 
-
+                {/* Paper Texture */}
+                <div>
+                  <label className="block text-xs font-sans tracking-widest text-gray-400 uppercase mb-3 text-center">
+                    Texture
+                  </label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {TEXTURE_TYPES.map((t) => (
+                      <button
+                        key={t.id}
+                        onClick={() => setTexture(t.id)}
+                        className={clsx(
+                          "flex flex-col items-center justify-center p-2 rounded-lg transition-colors border border-transparent",
+                          texture === t.id ? "bg-white/10 border-white/20" : "hover:bg-white/5"
+                        )}
+                      >
+                        <div 
+                          className="w-10 h-10 mb-2 relative rounded-md shadow-inner bg-[var(--color-paper-cream)]"
+                          style={{
+                            backgroundColor: previewColorClasses[paperColor],
+                            ...getTextureStyle(t.id, true)
+                          }}
+                        />
+                        <span className="text-[10px] uppercase tracking-wider text-gray-400 text-center leading-tight">{t.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
                 {/* Tape Type */}
                 <div>

@@ -1,5 +1,6 @@
 export type PaperColor = 'peach' | 'yellow' | 'green' | 'blue' | 'lavender';
 export type TapeType = 'frosted' | 'gingham' | 'polka' | 'linen' | 'hearts' | 'smiley' | 'stars' | 'classic' | 'india';
+export type PaperTexture = 'grid' | 'dots' | 'lines' | 'blank';
 
 export type Thought = {
   id: string;
@@ -9,5 +10,6 @@ export type Thought = {
   createdAt: number;
   paperColor: PaperColor;
   tape: TapeType;
+  texture?: PaperTexture;
   rotation: number;
 };

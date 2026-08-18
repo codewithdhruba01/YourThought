@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Heart } from 'lucide-react';
 import clsx from 'clsx';
 import type { Thought } from '../types';
+import { getTextureStyle } from '../utils/styles';
 
 interface ThoughtCardProps {
   thought: Thought;
@@ -40,12 +41,8 @@ export function ThoughtCard({ thought, onLikeToggle }: ThoughtCardProps) {
         )}
         style={{
           backgroundColor: colorClasses[thought.paperColor] || '#A6D238',
-          backgroundImage: `
-            linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px)
-          `,
-          backgroundSize: '18px 18px',
-          boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)'
+          boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
+          ...getTextureStyle(thought.texture)
         }}
       >
         {/* Tape */}

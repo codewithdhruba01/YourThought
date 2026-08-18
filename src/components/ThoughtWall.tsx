@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 import { ThoughtCard } from './ThoughtCard';
 import type { Thought } from '../types';
+import { getTextureStyle } from '../utils/styles';
 
 interface ThoughtWallProps {
   thoughts: Thought[];
@@ -50,12 +51,8 @@ export function ThoughtWall({ thoughts, onLikeToggle, onAddClick }: ThoughtWallP
                   className="relative w-[86%] h-[86%] flex flex-col items-center justify-center text-center rounded-2xl group-hover:-translate-y-1.25 group-hover:rotate-0 transition-transform duration-[0.4s] ease-out"
                   style={{
                     backgroundColor: '#A6D238',
-                    backgroundImage: `
-                      linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '18px 18px',
-                    boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)'
+                    boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
+                    ...getTextureStyle('grid')
                   }}
                 >
                   {/* Tape */}

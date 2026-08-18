@@ -1,4 +1,5 @@
 import { Pencil } from 'lucide-react';
+import { getTextureStyle } from '../utils/styles';
 
 interface FloatingAddButtonProps {
   onClick: () => void;
@@ -15,12 +16,8 @@ export function FloatingAddButton({ onClick }: FloatingAddButtonProps) {
         className="relative w-28 h-28 rounded-2xl flex flex-col items-center justify-center transform rotate-2 group-hover:rotate-0 group-hover:-translate-y-1.25 transition-all duration-300"
         style={{
           backgroundColor: '#A6D238',
-          backgroundImage: `
-            linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px)
-          `,
-          backgroundSize: '14px 14px',
-          boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)'
+          boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
+          ...getTextureStyle('grid', true)
         }}
       >
         {/* Tape */}
