@@ -59,7 +59,7 @@ export function ThoughtWall({ thoughts, onLikeToggle, onAddClick }: ThoughtWallP
                   }}
                 >
                   {/* Tape */}
-                  <div className="tape-base tape-classic absolute -top-2.5 left-1/2 w-[48%] h-6 z-10" style={{ transform: 'translateX(-50%)' }} />
+                  <div className="tape-base tape-india absolute -top-2.5 left-1/2 w-[48%] h-6 z-10" style={{ transform: 'translateX(-50%)' }} />
                   
                   {/* Content */}
                   <div className="flex flex-col items-center justify-center gap-3 relative z-10 mt-4">

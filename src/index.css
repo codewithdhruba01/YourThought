@@ -119,4 +119,9 @@
     clip-path: none;
     border-radius: 6px;
   }
+
+  .tape-india {
+    background: linear-gradient(to bottom, #FF9933 0%, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%);
+    clip-path: polygon(1% 0%, 3% 15%, 0% 30%, 4% 45%, 1% 60%, 3% 75%, 0% 90%, 2% 100%, 98% 100%, 100% 85%, 97% 70%, 99% 55%, 96% 40%, 100% 25%, 97% 10%, 100% 0%);
+  }
 }

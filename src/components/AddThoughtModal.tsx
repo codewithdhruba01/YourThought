@@ -20,6 +20,7 @@ const PAPER_COLORS: { id: PaperColor; hex: string }[] = [
 ];
 
 const TAPE_TYPES: { id: TapeType; label: string }[] = [
+  { id: 'india', label: 'Indian Flag' },
   { id: 'classic', label: 'Classic Blue' },
   { id: 'frosted', label: 'Frosted' },
   { id: 'gingham', label: 'Gingham' },
@@ -33,7 +34,7 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
   const [text, setText] = useState('');
   const [author, setAuthor] = useState('');
   const [paperColor, setPaperColor] = useState<PaperColor>('green');
-  const [tape, setTape] = useState<TapeType>('classic');
+  const [tape, setTape] = useState<TapeType>('india');
 
   // Reset form when opened
   useEffect(() => {
@@ -41,7 +42,7 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
       setText('');
       setAuthor('');
       setPaperColor('green');
-      setTape('classic');
+      setTape('india');
     }
   }, [isOpen]);
 

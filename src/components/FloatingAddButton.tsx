@@ -24,7 +24,7 @@ export function FloatingAddButton({ onClick }: FloatingAddButtonProps) {
         }}
       >
         {/* Tape */}
-        <div className="tape-base tape-classic absolute -top-2.5 left-1/2 w-12 h-5 z-10" style={{ transform: 'translateX(-50%)' }} />
+        <div className="tape-base tape-india absolute -top-2.5 left-1/2 w-12 h-5 z-10" style={{ transform: 'translateX(-50%)' }} />
         
         <div className="flex flex-col items-center space-y-2 mt-2 z-10">
           <span className="font-serif text-lg text-gray-800 tracking-wide font-medium">add yours</span>
