@@ -47,21 +47,35 @@ export function ThoughtWall({ thoughts, onLikeToggle, onAddClick }: ThoughtWallP
                 }}
               >
                 <div 
-                  className="relative paper-texture w-[86%] h-[86%] flex flex-col items-center justify-center text-center rounded-[2px] bg-[#d5a575] group-hover:-translate-y-[5px] group-hover:rotate-0 transition-transform duration-[0.4s] ease-out shadow-sm"
+                  className="relative w-[86%] h-[86%] flex flex-col items-center justify-center text-center rounded-2xl group-hover:-translate-y-1.25 group-hover:rotate-0 transition-transform duration-[0.4s] ease-out"
                   style={{
-                    background: `linear-gradient(165deg, rgba(255,255,255,0.1) 0%, transparent 40%), #d5a575`,
-                    boxShadow: 'inset 0 1px rgba(255,255,255,0.4), inset 0 -1px 2px rgba(70,55,30,0.1), 0 1px 1px rgba(0,0,0,0.2), 0 6px 14px rgba(0,0,0,0.2), 0 18px 36px rgba(0,0,0,0.3)'
+                    backgroundColor: '#A6D238',
+                    backgroundImage: `
+                      linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '18px 18px',
+                    boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)'
                   }}
                 >
                   {/* Tape */}
-                  <div className="tape-base tape-stars absolute -top-[1.2rem] left-1/2 w-[55%] h-[2.4rem]" style={{ transform: 'translateX(-50%)' }} />
+                  <div 
+                    className="absolute -top-2.5 left-1/2 w-[48%] h-6 z-10 flex flex-col rounded-md overflow-hidden" 
+                    style={{ 
+                      transform: 'translateX(-50%)',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                    }}
+                  >
+                    <div className="h-[40%] w-full bg-[#1A73E8]"></div>
+                    <div className="h-[60%] w-full" style={{ backgroundColor: 'rgba(144, 202, 249, 0.75)' }}></div>
+                  </div>
                   
                   {/* Content */}
                   <div className="flex flex-col items-center justify-center gap-3 relative z-10 mt-4">
-                    <div className="w-12 h-12 rounded-full border-[1.5px] border-dashed border-[#5c442c] flex items-center justify-center text-[#5c442c] group-hover:bg-[#5c442c]/10 transition-colors">
+                    <div className="w-12 h-12 rounded-full border-[1.5px] border-dashed border-[#466B14] flex items-center justify-center text-[#466B14] group-hover:bg-[#466B14]/10 transition-colors">
                       <Plus size={24} strokeWidth={2} />
                     </div>
-                    <span className="font-serif text-[1.1rem] text-[#5c442c] tracking-wide">add yours</span>
+                    <span className="font-serif text-[1.1rem] text-[#466B14] tracking-wide font-medium">add yours</span>
                   </div>
                 </div>
               </button>
