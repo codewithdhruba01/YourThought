@@ -108,10 +108,10 @@ export function AddThoughtModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-lg bg-[#22211f] rounded-2xl shadow-2xl overflow-hidden border border-gray-800 flex flex-col max-h-[90vh]"
+            className="relative w-full max-w-lg bg-[#22211f] rounded-2xl shadow-2xl overflow-hidden border border-gray-800 flex flex-col max-h-[85vh] sm:max-h-[90vh]"
           >
             {/* Header */}
-            <div className="p-6 pb-4 flex justify-between items-start relative z-10">
+            <div className="p-5 sm:p-6 pb-3 sm:pb-4 flex justify-between items-start relative z-10">
               <div className="text-center w-full">
                 <h2 className="font-serif text-3xl text-[#e0ddd5]">
                   add your note
@@ -129,11 +129,11 @@ export function AddThoughtModal({
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 pb-6 space-y-8 scrollbar-hide">
+            <div className="flex-1 overflow-y-auto px-5 sm:px-6 pb-5 sm:pb-6 space-y-6 sm:space-y-8 scrollbar-hide">
               {/* Live Preview */}
               <div className="flex justify-center mt-2">
                 <div
-                  className="relative w-40 h-44 p-4 pt-8 flex flex-col items-center justify-center text-center rounded-2xl"
+                  className="relative w-36 h-40 sm:w-40 sm:h-44 p-3 sm:p-4 pt-6 sm:pt-8 flex flex-col items-center justify-center text-center rounded-2xl"
                   style={{
                     backgroundColor: previewColorClasses[paperColor],
                     boxShadow:
@@ -258,7 +258,7 @@ export function AddThoughtModal({
                       value={text}
                       onChange={(e) => setText(e.target.value.slice(0, 120))}
                       placeholder="a small thing worth doing..."
-                      className="w-full bg-[#1a1917] border border-gray-700 rounded-lg p-4 text-[#e0ddd5] font-serif text-lg resize-none focus:outline-none focus:border-gray-500 h-28"
+                      className="w-full bg-[#1a1917] border border-gray-700 rounded-lg p-3 sm:p-4 text-[#e0ddd5] font-serif text-base sm:text-lg resize-none focus:outline-none focus:border-gray-500 h-20 sm:h-28"
                     />
                     <div className="absolute bottom-3 right-3 text-xs font-sans text-gray-500">
                       {text.length}/120
