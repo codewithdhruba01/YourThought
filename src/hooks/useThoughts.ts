@@ -1,53 +1,77 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useEffect } from 'react';
+import { create } from 'zustand';
 import { supabase } from '../lib/supabase';
 import type { Thought } from '../types';
 
 export type SortMode = 'newest' | 'popular' | 'surprise';
 
-export function useThoughts() {
-  const [thoughts, setThoughts] = useState<Thought[]>([]);
-  const [sortMode, setSortMode] = useState<SortMode>('newest');
-  const [isLoaded, setIsLoaded] = useState(false);
+interface ThoughtsState {
+  thoughts: Thought[];
+  sortMode: SortMode;
+  isLoaded: boolean;
+  isFetching: boolean;
 
-  const thoughtsRef = useRef(thoughts);
-  useEffect(() => {
-    thoughtsRef.current = thoughts;
-  }, [thoughts]);
+  // Actions
+  fetchThoughts: () => Promise<void>;
+  setSortMode: (mode: SortMode) => void;
+  triggerSurprise: () => void;
+  addThought: (newThought: Thought) => Promise<void>;
+  toggleLike: (id: string) => Promise<void>;
+}
 
-  // Initialize data from Supabase
-  useEffect(() => {
-    const fetchThoughts = async () => {
-      const { data, error } = await supabase.from('thoughts').select('*');
+export const useThoughtsStore = create<ThoughtsState>((set, get) => ({
+  thoughts: [],
+  sortMode: 'newest',
+  isLoaded: false,
+  isFetching: false,
 
-      if (error) {
-        console.error('Error fetching thoughts:', error);
-      } else if (data) {
-        // Map from snake_case to camelCase
-        const mappedThoughts: Thought[] = data.map((t) => ({
-          id: t.id,
-          text: t.text,
-          author: t.author || undefined,
-          likes: t.likes,
-          createdAt: Number(t.created_at),
-          paperColor: t.paper_color,
-          tape: t.tape,
-          texture: t.texture || undefined,
-          rotation: t.rotation,
-        }));
-        setThoughts(mappedThoughts);
-      }
-      setIsLoaded(true);
-    };
+  fetchThoughts: async () => {
+    if (get().isLoaded || get().isFetching) return;
 
-    fetchThoughts();
-  }, []);
+    set({ isFetching: true });
+    const { data, error } = await supabase.from('thoughts').select('*');
 
-  const addThought = useCallback(async (newThought: Thought) => {
+    if (error) {
+      console.error('Error fetching thoughts:', error);
+      set({ isFetching: false });
+    } else if (data) {
+      const mappedThoughts: Thought[] = data.map((t) => ({
+        id: t.id,
+        text: t.text,
+        author: t.author || undefined,
+        likes: t.likes,
+        createdAt: Number(t.created_at),
+        paperColor: t.paper_color,
+        tape: t.tape,
+        texture: t.texture || undefined,
+        rotation: t.rotation,
+      }));
+      set({ thoughts: mappedThoughts, isLoaded: true, isFetching: false });
+    }
+  },
+
+  setSortMode: (mode) => {
+    if (mode === 'surprise') {
+      get().triggerSurprise();
+    } else {
+      set({ sortMode: mode });
+    }
+  },
+
+  triggerSurprise: () => {
+    set((state) => {
+      const shuffled = [...state.thoughts].sort(() => Math.random() - 0.5);
+      return { sortMode: 'surprise', thoughts: shuffled };
+    });
+  },
+
+  addThought: async (newThought) => {
     // Optimistic update
-    setThoughts((prev) => [newThought, ...prev]);
-    setSortMode('newest');
+    set((state) => ({
+      thoughts: [newThought, ...state.thoughts],
+      sortMode: 'newest',
+    }));
 
-    // Persist to Supabase
     const { error } = await supabase.from('thoughts').insert([
       {
         id: newThought.id,
@@ -65,20 +89,20 @@ export function useThoughts() {
     if (error) {
       console.error('Error inserting thought:', error);
     }
-  }, []);
+  },
 
-  const toggleLike = useCallback(async (id: string) => {
-    const thought = thoughtsRef.current.find((t) => t.id === id);
+  toggleLike: async (id) => {
+    const thought = get().thoughts.find((t) => t.id === id);
     if (!thought) return;
 
     const newLikes = thought.likes + 1;
 
-    // Optimistic update
-    setThoughts((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, likes: newLikes } : t))
-    );
+    set((state) => ({
+      thoughts: state.thoughts.map((t) =>
+        t.id === id ? { ...t, likes: newLikes } : t
+      ),
+    }));
 
-    // Persist to Supabase
     const { error } = await supabase
       .from('thoughts')
       .update({ likes: newLikes })
@@ -87,39 +111,39 @@ export function useThoughts() {
     if (error) {
       console.error('Error updating likes:', error);
     }
-  }, []);
+  },
+}));
 
-  const triggerSurprise = useCallback(() => {
-    setSortMode('surprise');
-    // Randomize the thoughts by slightly tweaking their order
-    setThoughts((prev) => {
-      const shuffled = [...prev].sort(() => Math.random() - 0.5);
-      return shuffled;
-    });
-  }, []);
+export function useThoughts() {
+  const isLoaded = useThoughtsStore((state) => state.isLoaded);
+  const fetchThoughts = useThoughtsStore((state) => state.fetchThoughts);
+  const thoughts = useThoughtsStore((state) => state.thoughts);
+  const sortMode = useThoughtsStore((state) => state.sortMode);
+  const setSortMode = useThoughtsStore((state) => state.setSortMode);
+  const addThought = useThoughtsStore((state) => state.addThought);
+  const toggleLike = useThoughtsStore((state) => state.toggleLike);
 
-  const getSortedThoughts = useCallback(() => {
+  useEffect(() => {
+    if (!isLoaded) {
+      fetchThoughts();
+    }
+  }, [isLoaded, fetchThoughts]);
+
+  const getSortedThoughts = () => {
     const copy = [...thoughts];
     if (sortMode === 'newest') {
       return copy.sort((a, b) => b.createdAt - a.createdAt);
     } else if (sortMode === 'popular') {
       return copy.sort((a, b) => b.likes - a.likes);
     }
-    // For surprise, we already shuffled the actual array state
     return copy;
-  }, [thoughts, sortMode]);
+  };
 
   return {
     thoughts: getSortedThoughts(),
     totalCount: thoughts.length,
     sortMode,
-    setSortMode: (mode: SortMode) => {
-      if (mode === 'surprise') {
-        triggerSurprise();
-      } else {
-        setSortMode(mode);
-      }
-    },
+    setSortMode,
     addThought,
     toggleLike,
     isLoaded,
