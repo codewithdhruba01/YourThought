@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
@@ -38,23 +38,29 @@ const TAPE_TYPES: { id: TapeType; label: string }[] = [
   { id: 'smiley', label: 'Smiley' },
 ];
 
-export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalProps) {
+export function AddThoughtModal({
+  isOpen,
+  onClose,
+  onSubmit,
+}: AddThoughtModalProps) {
   const [text, setText] = useState('');
   const [author, setAuthor] = useState('');
   const [paperColor, setPaperColor] = useState<PaperColor>('green');
   const [tape, setTape] = useState<TapeType>('india');
   const [texture, setTexture] = useState<PaperTexture>('grid');
 
-  // Reset form when opened
-  useEffect(() => {
-    if (isOpen) {
-      setText('');
-      setAuthor('');
-      setPaperColor('green');
-      setTape('india');
-      setTexture('grid');
-    }
-  }, [isOpen]);
+  const resetForm = () => {
+    setText('');
+    setAuthor('');
+    setPaperColor('green');
+    setTape('india');
+    setTexture('grid');
+  };
+
+  const handleClose = () => {
+    onClose();
+    setTimeout(resetForm, 300); // Reset after exit animation
+  };
 
   const handleSubmit = () => {
     if (!text.trim()) return;
@@ -68,11 +74,11 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
       paperColor,
       tape,
       texture,
-      rotation: (Math.random() * 3) - 1.5,
+      rotation: Math.random() * 3 - 1.5,
     };
 
     onSubmit(newThought);
-    onClose();
+    handleClose();
   };
 
   const previewColorClasses: Record<PaperColor, string> = {
@@ -92,7 +98,7 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
           />
 
@@ -107,11 +113,15 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
             {/* Header */}
             <div className="p-6 pb-4 flex justify-between items-start relative z-10">
               <div className="text-center w-full">
-                <h2 className="font-serif text-3xl text-[#e0ddd5]">add your note</h2>
-                <p className="font-serif text-sm text-gray-400 italic">(be kind)</p>
+                <h2 className="font-serif text-3xl text-[#e0ddd5]">
+                  add your note
+                </h2>
+                <p className="font-serif text-sm text-gray-400 italic">
+                  (be kind)
+                </p>
               </div>
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 className="absolute right-6 top-6 text-gray-400 hover:text-white transition-colors"
                 aria-label="Close modal"
               >
@@ -120,29 +130,34 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
             </div>
 
             <div className="flex-1 overflow-y-auto px-6 pb-6 space-y-8 scrollbar-hide">
-              
               {/* Live Preview */}
               <div className="flex justify-center mt-2">
-                <div 
+                <div
                   className="relative w-40 h-44 p-4 pt-8 flex flex-col items-center justify-center text-center rounded-2xl"
                   style={{
                     backgroundColor: previewColorClasses[paperColor],
-                    boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
-                    ...getTextureStyle(texture, true)
+                    boxShadow:
+                      '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
+                    ...getTextureStyle(texture, true),
                   }}
                 >
                   {/* Tape */}
-                  <div className={clsx("tape-base absolute -top-2.5 left-1/2 w-[48%] h-6 z-10", `tape-${tape}`)} style={{ transform: 'translateX(-50%)' }} />
-                  
+                  <div
+                    className={clsx(
+                      'tape-base absolute -top-2.5 left-1/2 w-[48%] h-6 z-10',
+                      `tape-${tape}`
+                    )}
+                    style={{ transform: 'translateX(-50%)' }}
+                  />
+
                   <p className="font-serif text-sm leading-snug text-gray-800 wrap-break-word w-full line-clamp-4 font-medium mt-1">
-                    {text || "a small thing worth doing..."}
+                    {text || 'a small thing worth doing...'}
                   </p>
                 </div>
               </div>
 
               {/* Selectors */}
               <div className="space-y-6">
-                
                 {/* Paper Color */}
                 <div>
                   <label className="block text-xs font-sans tracking-widest text-gray-400 uppercase mb-3 text-center">
@@ -154,8 +169,10 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                         key={color.id}
                         onClick={() => setPaperColor(color.id)}
                         className={clsx(
-                          "w-8 h-8 rounded-full shadow-inner transition-all",
-                          paperColor === color.id ? "ring-2 ring-offset-2 ring-offset-[#22211f] ring-white scale-110" : "hover:scale-110"
+                          'w-8 h-8 rounded-full shadow-inner transition-all',
+                          paperColor === color.id
+                            ? 'ring-2 ring-offset-2 ring-offset-[#22211f] ring-white scale-110'
+                            : 'hover:scale-110'
                         )}
                         style={{ backgroundColor: color.hex }}
                         aria-label={`Select ${color.id} paper`}
@@ -175,18 +192,22 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                         key={t.id}
                         onClick={() => setTexture(t.id)}
                         className={clsx(
-                          "flex flex-col items-center justify-center p-2 rounded-lg transition-colors border border-transparent",
-                          texture === t.id ? "bg-white/10 border-white/20" : "hover:bg-white/5"
+                          'flex flex-col items-center justify-center p-2 rounded-lg transition-colors border border-transparent',
+                          texture === t.id
+                            ? 'bg-white/10 border-white/20'
+                            : 'hover:bg-white/5'
                         )}
                       >
-                        <div 
+                        <div
                           className="w-10 h-10 mb-2 relative rounded-md shadow-inner bg-paper-cream"
                           style={{
                             backgroundColor: previewColorClasses[paperColor],
-                            ...getTextureStyle(t.id, true)
+                            ...getTextureStyle(t.id, true),
                           }}
                         />
-                        <span className="text-[10px] uppercase tracking-wider text-gray-400 text-center leading-tight">{t.label}</span>
+                        <span className="text-[10px] uppercase tracking-wider text-gray-400 text-center leading-tight">
+                          {t.label}
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -203,14 +224,25 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                         key={t.id}
                         onClick={() => setTape(t.id)}
                         className={clsx(
-                          "flex flex-col items-center justify-center p-1.5 rounded-lg transition-colors",
-                          tape === t.id ? "bg-white/10" : "hover:bg-white/5"
+                          'flex flex-col items-center justify-center p-1.5 rounded-lg transition-colors',
+                          tape === t.id ? 'bg-white/10' : 'hover:bg-white/5'
                         )}
                       >
                         <div className="w-12 h-4 mb-1.5 relative overflow-hidden bg-gray-200 rounded-sm">
-                           <div className={clsx("absolute inset-0", `tape-${t.id}`)} style={{ top: 0, left: 0, width: '100%', height: '100%', transform: 'none' }} />
+                          <div
+                            className={clsx('absolute inset-0', `tape-${t.id}`)}
+                            style={{
+                              top: 0,
+                              left: 0,
+                              width: '100%',
+                              height: '100%',
+                              transform: 'none',
+                            }}
+                          />
                         </div>
-                        <span className="text-[9px] uppercase tracking-wider text-gray-400 text-center leading-tight truncate w-full">{t.label}</span>
+                        <span className="text-[9px] uppercase tracking-wider text-gray-400 text-center leading-tight truncate w-full">
+                          {t.label}
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -237,7 +269,10 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                 {/* Author Input */}
                 <div>
                   <label className="block text-xs font-sans tracking-widest text-gray-400 uppercase mb-2">
-                    Your Name / Instagram Handle <span className="lowercase italic text-gray-500">(optional)</span>
+                    Your Name / Instagram Handle{' '}
+                    <span className="lowercase italic text-gray-500">
+                      (optional)
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -259,7 +294,6 @@ export function AddThoughtModal({ isOpen, onClose, onSubmit }: AddThoughtModalPr
                   Submit
                 </button>
               </div>
-
             </div>
           </motion.div>
         </div>

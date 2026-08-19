@@ -28,18 +28,19 @@ Whether it's a small idea, a quote you love, or just a friendly "hello," stick i
 If you'd like to run this project on your own machine, follow these steps:
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/codewithdhruba01/YourThought.git
    cd YourThought
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
-4. **Start the development server**:
+3. **Start the development server**:
    ```bash
    npm run dev
    ```
-

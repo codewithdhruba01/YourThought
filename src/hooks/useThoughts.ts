@@ -17,15 +17,13 @@ export function useThoughts() {
   // Initialize data from Supabase
   useEffect(() => {
     const fetchThoughts = async () => {
-      const { data, error } = await supabase
-        .from('thoughts')
-        .select('*');
-      
+      const { data, error } = await supabase.from('thoughts').select('*');
+
       if (error) {
         console.error('Error fetching thoughts:', error);
       } else if (data) {
         // Map from snake_case to camelCase
-        const mappedThoughts: Thought[] = data.map(t => ({
+        const mappedThoughts: Thought[] = data.map((t) => ({
           id: t.id,
           text: t.text,
           author: t.author || undefined,
@@ -34,7 +32,7 @@ export function useThoughts() {
           paperColor: t.paper_color,
           tape: t.tape,
           texture: t.texture || undefined,
-          rotation: t.rotation
+          rotation: t.rotation,
         }));
         setThoughts(mappedThoughts);
       }
@@ -46,13 +44,12 @@ export function useThoughts() {
 
   const addThought = useCallback(async (newThought: Thought) => {
     // Optimistic update
-    setThoughts(prev => [newThought, ...prev]);
+    setThoughts((prev) => [newThought, ...prev]);
     setSortMode('newest');
 
     // Persist to Supabase
-    const { error } = await supabase
-      .from('thoughts')
-      .insert([{
+    const { error } = await supabase.from('thoughts').insert([
+      {
         id: newThought.id,
         text: newThought.text,
         author: newThought.author,
@@ -61,27 +58,24 @@ export function useThoughts() {
         paper_color: newThought.paperColor,
         tape: newThought.tape,
         texture: newThought.texture,
-        rotation: newThought.rotation
-      }]);
-      
+        rotation: newThought.rotation,
+      },
+    ]);
+
     if (error) {
       console.error('Error inserting thought:', error);
     }
   }, []);
 
   const toggleLike = useCallback(async (id: string) => {
-    const thought = thoughtsRef.current.find(t => t.id === id);
+    const thought = thoughtsRef.current.find((t) => t.id === id);
     if (!thought) return;
-    
+
     const newLikes = thought.likes + 1;
 
     // Optimistic update
-    setThoughts(prev => 
-      prev.map(t => 
-        t.id === id 
-          ? { ...t, likes: newLikes } 
-          : t
-      )
+    setThoughts((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, likes: newLikes } : t))
     );
 
     // Persist to Supabase
@@ -98,7 +92,7 @@ export function useThoughts() {
   const triggerSurprise = useCallback(() => {
     setSortMode('surprise');
     // Randomize the thoughts by slightly tweaking their order
-    setThoughts(prev => {
+    setThoughts((prev) => {
       const shuffled = [...prev].sort(() => Math.random() - 0.5);
       return shuffled;
     });
@@ -128,6 +122,6 @@ export function useThoughts() {
     },
     addThought,
     toggleLike,
-    isLoaded
+    isLoaded,
   };
 }

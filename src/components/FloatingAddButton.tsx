@@ -12,28 +12,34 @@ export function FloatingAddButton({ onClick }: FloatingAddButtonProps) {
       className="fixed bottom-8 right-8 z-40 group focus:outline-none"
       aria-label="Add a thought"
     >
-      <div 
+      <div
         className="relative w-28 h-28 rounded-2xl flex flex-col items-center justify-center transform rotate-2 group-hover:rotate-0 group-hover:-translate-y-1.25 transition-all duration-300"
         style={{
           backgroundColor: '#A6D238',
-          boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
-          ...getTextureStyle('grid', true)
+          boxShadow:
+            '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
+          ...getTextureStyle('grid', true),
         }}
       >
         {/* Tape */}
-        <div className="tape-base tape-india absolute -top-2.5 left-1/2 w-12 h-5 z-10" style={{ transform: 'translateX(-50%)' }} />
-        
+        <div
+          className="tape-base tape-india absolute -top-2.5 left-1/2 w-12 h-5 z-10"
+          style={{ transform: 'translateX(-50%)' }}
+        />
+
         <div className="flex flex-col items-center space-y-2 mt-2 z-10">
-          <span className="font-serif text-lg text-gray-800 tracking-wide font-medium">add yours</span>
+          <span className="font-serif text-lg text-gray-800 tracking-wide font-medium">
+            add yours
+          </span>
           <div className="flex items-center space-x-1 opacity-70">
-            <span className="font-sans text-[0.6rem] uppercase tracking-widest text-gray-700">Write a thought</span>
+            <span className="font-sans text-[0.6rem] uppercase tracking-widest text-gray-700">
+              Write a thought
+            </span>
           </div>
         </div>
-        
+
         {/* Decorative pencil illustration sitting on the tape */}
-        <div 
-          className="absolute -top-4 left-1/2 z-20 text-[#466B14] transform -translate-x-1/2 rotate-15 group-hover:rotate-0 transition-transform duration-300 drop-shadow-md"
-        >
+        <div className="absolute -top-4 left-1/2 z-20 text-[#466B14] transform -translate-x-1/2 rotate-15 group-hover:rotate-0 transition-transform duration-300 drop-shadow-md">
           <Pencil size={20} strokeWidth={2.5} />
         </div>
       </div>

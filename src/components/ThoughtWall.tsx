@@ -10,11 +10,18 @@ interface ThoughtWallProps {
   onAddClick?: () => void;
 }
 
-export function ThoughtWall({ thoughts, onLikeToggle, onAddClick }: ThoughtWallProps) {
+export function ThoughtWall({
+  thoughts,
+  onLikeToggle,
+  onAddClick,
+}: ThoughtWallProps) {
   return (
     <div className="w-full py-8">
       {/* Grid Layout to align items in rows */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mx-auto justify-items-center" style={{ gap: 'clamp(1rem, 2vw, 1.5rem) clamp(0.5rem, 1vw, 1rem)' }}>
+      <div
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mx-auto justify-items-center"
+        style={{ gap: 'clamp(1rem, 2vw, 1.5rem) clamp(0.5rem, 1vw, 1rem)' }}
+      >
         <AnimatePresence>
           {thoughts.map((thought) => (
             <motion.div
@@ -23,9 +30,9 @@ export function ThoughtWall({ thoughts, onLikeToggle, onAddClick }: ThoughtWallP
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
-              transition={{ 
+              transition={{
                 opacity: { duration: 0.3 },
-                layout: { type: "spring", bounce: 0.3, duration: 0.6 }
+                layout: { type: 'spring', bounce: 0.3, duration: 0.6 },
               }}
               className="w-full max-w-[18rem] flex justify-center"
             >
@@ -39,7 +46,7 @@ export function ThoughtWall({ thoughts, onLikeToggle, onAddClick }: ThoughtWallP
               animate={{ opacity: 1, scale: 1 }}
               className="w-full max-w-[18rem] flex justify-center"
             >
-              <button 
+              <button
                 onClick={onAddClick}
                 className="relative flex items-center justify-center w-full aspect-[1/1.25] group cursor-pointer focus:outline-none"
                 style={{
@@ -47,23 +54,29 @@ export function ThoughtWall({ thoughts, onLikeToggle, onAddClick }: ThoughtWallP
                   transition: 'transform 0.4s ease',
                 }}
               >
-                <div 
+                <div
                   className="relative w-[86%] h-[86%] flex flex-col items-center justify-center text-center rounded-2xl group-hover:-translate-y-1.25 group-hover:rotate-0 transition-transform duration-[0.4s] ease-out"
                   style={{
                     backgroundColor: '#A6D238',
-                    boxShadow: '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
-                    ...getTextureStyle('grid')
+                    boxShadow:
+                      '0 8px 16px -4px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.2)',
+                    ...getTextureStyle('grid'),
                   }}
                 >
                   {/* Tape */}
-                  <div className="tape-base tape-india absolute -top-2.5 left-1/2 w-[48%] h-6 z-10" style={{ transform: 'translateX(-50%)' }} />
-                  
+                  <div
+                    className="tape-base tape-india absolute -top-2.5 left-1/2 w-[48%] h-6 z-10"
+                    style={{ transform: 'translateX(-50%)' }}
+                  />
+
                   {/* Content */}
                   <div className="flex flex-col items-center justify-center gap-3 relative z-10 mt-4">
                     <div className="w-12 h-12 rounded-full border-[1.5px] border-dashed border-[#466B14] flex items-center justify-center text-[#466B14] group-hover:bg-[#466B14]/10 transition-colors">
                       <Plus size={24} strokeWidth={2} />
                     </div>
-                    <span className="font-serif text-[1.1rem] text-[#466B14] tracking-wide font-medium">add yours</span>
+                    <span className="font-serif text-[1.1rem] text-[#466B14] tracking-wide font-medium">
+                      add yours
+                    </span>
                   </div>
                 </div>
               </button>

@@ -9,25 +9,37 @@ import { Footer } from './components/Footer';
 import { useThoughts } from './hooks/useThoughts';
 
 function App() {
-  const { thoughts, totalCount, sortMode, setSortMode, addThought, toggleLike } = useThoughts();
+  const {
+    thoughts,
+    totalCount,
+    sortMode,
+    setSortMode,
+    addThought,
+    toggleLike,
+  } = useThoughts();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isThanksModalOpen, setIsThanksModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[var(--color-wall-dark)] text-[#e0ddd5] font-sans selection:bg-white/20">
-      <div className="w-full max-w-[1120px] mx-auto flex flex-col min-h-screen" style={{ padding: 'clamp(2.75rem, 8vh, 5rem) clamp(1rem, 3vw, 2rem) 4.5rem' }}>
+      <div
+        className="w-full max-w-[1120px] mx-auto flex flex-col min-h-screen"
+        style={{
+          padding: 'clamp(2.75rem, 8vh, 5rem) clamp(1rem, 3vw, 2rem) 4.5rem',
+        }}
+      >
         <Header />
-        
+
         <main className="flex-1">
-          <ThoughtToolbar 
-            count={totalCount} 
-            activeSort={sortMode} 
-            onSortChange={setSortMode} 
+          <ThoughtToolbar
+            count={totalCount}
+            activeSort={sortMode}
+            onSortChange={setSortMode}
           />
-          
-          <ThoughtWall 
-            thoughts={thoughts} 
-            onLikeToggle={toggleLike} 
+
+          <ThoughtWall
+            thoughts={thoughts}
+            onLikeToggle={toggleLike}
             onAddClick={() => setIsModalOpen(true)}
           />
         </main>
@@ -36,19 +48,19 @@ function App() {
       </div>
 
       <FloatingAddButton onClick={() => setIsModalOpen(true)} />
-      
-      <AddThoughtModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+
+      <AddThoughtModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         onSubmit={(thought) => {
           addThought(thought);
           setIsThanksModalOpen(true);
-        }} 
+        }}
       />
 
-      <ThanksModal 
-        isOpen={isThanksModalOpen} 
-        onClose={() => setIsThanksModalOpen(false)} 
+      <ThanksModal
+        isOpen={isThanksModalOpen}
+        onClose={() => setIsThanksModalOpen(false)}
       />
     </div>
   );
