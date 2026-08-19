@@ -9,11 +9,11 @@ export function FloatingAddButton({ onClick }: FloatingAddButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="fixed bottom-8 right-8 z-40 group focus:outline-none"
+      className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 group focus:outline-none"
       aria-label="Add a thought"
     >
       <div
-        className="relative w-28 h-28 rounded-2xl flex flex-col items-center justify-center transform rotate-2 group-hover:rotate-0 group-hover:-translate-y-1.25 transition-all duration-300"
+        className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center transform rotate-2 group-hover:rotate-0 group-hover:-translate-y-1.25 transition-all duration-300"
         style={{
           backgroundColor: '#A6D238',
           boxShadow:
@@ -23,24 +23,24 @@ export function FloatingAddButton({ onClick }: FloatingAddButtonProps) {
       >
         {/* Tape */}
         <div
-          className="tape-base tape-india absolute -top-2.5 left-1/2 w-12 h-5 z-10"
+          className="tape-base tape-india absolute -top-2.5 left-1/2 w-10 h-4 sm:w-12 sm:h-5 z-10"
           style={{ transform: 'translateX(-50%)' }}
         />
 
-        <div className="flex flex-col items-center space-y-2 mt-2 z-10">
-          <span className="font-serif text-lg text-gray-800 tracking-wide font-medium">
+        <div className="flex flex-col items-center space-y-1 sm:space-y-2 mt-1 sm:mt-2 z-10">
+          <span className="font-serif text-base sm:text-lg text-gray-800 tracking-wide font-medium">
             add yours
           </span>
           <div className="flex items-center space-x-1 opacity-70">
-            <span className="font-sans text-[0.6rem] uppercase tracking-widest text-gray-700">
+            <span className="font-sans text-[0.5rem] sm:text-[0.6rem] uppercase tracking-widest text-gray-700">
               Write a thought
             </span>
           </div>
         </div>
 
         {/* Decorative pencil illustration sitting on the tape */}
-        <div className="absolute -top-4 left-1/2 z-20 text-[#466B14] transform -translate-x-1/2 rotate-15 group-hover:rotate-0 transition-transform duration-300 drop-shadow-md">
-          <Pencil size={20} strokeWidth={2.5} />
+        <div className="absolute -top-3 sm:-top-4 left-1/2 z-20 text-[#466B14] transform -translate-x-1/2 rotate-15 group-hover:rotate-0 transition-transform duration-300 drop-shadow-md">
+          <Pencil className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />
         </div>
       </div>
     </button>

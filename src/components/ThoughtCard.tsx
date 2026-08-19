@@ -36,7 +36,7 @@ export function ThoughtCard({ thought, onLikeToggle }: ThoughtCardProps) {
     >
       <div
         className={clsx(
-          'relative w-[86%] h-[86%] p-[1.2rem_0.9rem_1.15rem] flex flex-col items-center justify-center text-center rounded-2xl',
+          'relative w-[78%] h-[78%] sm:w-[86%] sm:h-[86%] p-[1rem_0.8rem_1rem] sm:p-[1.2rem_0.9rem_1.15rem] flex flex-col items-center justify-center text-center rounded-xl sm:rounded-2xl',
           'group-hover:-translate-y-1.25 group-hover:rotate-0 transition-transform duration-[0.4s] ease-out'
         )}
         style={{
