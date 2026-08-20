@@ -48,14 +48,14 @@ export function ThoughtWall({
             >
               <button
                 onClick={onAddClick}
-                className="relative flex items-center justify-center w-full aspect-[1/1.25] group cursor-pointer focus:outline-none"
+                className="relative flex items-center justify-center w-full aspect-1/1.25 group cursor-pointer focus:outline-none"
                 style={{
                   transform: 'rotate(1.5deg)',
                   transition: 'transform 0.4s ease',
                 }}
               >
                 <div
-                  className="relative w-[86%] h-[86%] flex flex-col items-center justify-center text-center rounded-2xl group-hover:-translate-y-1.25 group-hover:rotate-0 transition-transform duration-[0.4s] ease-out"
+                  className="relative w-[78%] h-[78%] sm:w-[86%] sm:h-[86%] flex flex-col items-center justify-center text-center rounded-xl sm:rounded-2xl group-hover:-translate-y-1.25 group-hover:rotate-0 transition-transform duration-[0.4s] ease-out"
                   style={{
                     backgroundColor: '#A6D238',
                     boxShadow:

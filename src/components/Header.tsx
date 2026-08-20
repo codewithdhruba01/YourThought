@@ -4,7 +4,7 @@ export function Header() {
       className="w-full flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4"
       style={{ marginBottom: 'clamp(2.25rem, 6vh, 3.75rem)' }}
     >
-      <h1 className="font-brand text-[clamp(2.85rem,8vw,4.85rem)] font-medium leading-[0.92] tracking-[-0.035em] text-[#f3eee6] cursor-default text-center md:text-left">
+      <h1 className="font-brand text-[clamp(2.85rem,8vw,4.85rem)] font-bold leading-[0.92] tracking-[-0.035em] text-[#f3eee6] cursor-default text-center md:text-left">
         <span className="group/yours">
           <span className="transition-colors duration-300 group-hover/yours:text-paper-yellow">
             Y
