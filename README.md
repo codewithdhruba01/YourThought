@@ -44,3 +44,17 @@ If you'd like to run this project on your own machine, follow these steps:
    ```bash
    npm run dev
    ```
+
+## Code Quality & CI/CD
+
+This project enforces strict code quality and formatting standard.
+* **Linting & Formatting**: Run `npm run lint` and `npm run format` locally to check for issues.
+* **Pre-commit Hooks**: [Husky](https://typicode.github.io/husky/) ensures that all commits automatically run ESLint and Prettier checks before pushing code.
+* **Continuous Integration**: A GitHub Actions workflow automatically builds the project and tests for linting/formatting errors on every `push` and `pull_request` to the `main` branch.
+
+## 📝 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+
+*Crafted with precision by [@codewithdhruba](https://codewithdhruba.in/)*
